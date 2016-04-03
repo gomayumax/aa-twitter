@@ -8,17 +8,22 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Tweet;
+use App\User;
+use App\Follow;
+use Auth;
 
 class TweetController extends Controller
-{
-  public function __construct() {
-    parent::__construct();
-  }
-  
+{ 
   public function index() {
     $tweet_all = Tweet::all();
+    $follow_all = Follow::all();
+    $user_follow = $follow_all->filter(function ($item){
+      return $item['user_id'] == Auth::user()->id;
+    })->pluck('follow_id');
 
     $data['tweets'] = $tweet_all;
+    $data['followed'] = $user_follow->toArray();
+      
     return view('tweet/home',$data);
   } 
 
@@ -27,7 +32,7 @@ class TweetController extends Controller
 
     $tweet = new Tweet;
     $tweet->tweet = $input_tweet;
-    $tweet->user_id = '123';
+    $tweet->user_id = Auth::user()->id;
 
     $tweet->save();
     
