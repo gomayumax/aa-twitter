@@ -18,6 +18,7 @@ class PasswordController extends Controller
     |
     */
 
+  protected $redirectTo = '/tweet';
     use ResetsPasswords;
 
     /**
