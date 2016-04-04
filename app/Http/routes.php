@@ -10,13 +10,28 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-/*
 Route::get('/', function () {
     return view('welcome');
 });
- */
 Route::resource('tweet', 'TweetController');
+//Route::controller('auth', 'Auth\AuthController');
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', function() {
+  Auth::logout();
+  return Redirect::to('auth/login');
+  //'Auth\AuthController@getLogout');
+});
+// Registration routes...
+Route::get('auth/register', 'Auth\AuthController@getRegister');
+Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+//follow
+
+//Route::get('follow/add/{id}', 'FollowController@add');
+Route::get('follow/add/{id}', 'FollowController@checkFollow');
+Route::get('follow/list', 'FollowController@followList');
+Route::get('follower/list', 'FollowController@followerList');
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -27,7 +42,8 @@ Route::resource('tweet', 'TweetController');
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
+/*
 Route::group(['middleware' => ['web']], function () {
     //
 });
+ */
