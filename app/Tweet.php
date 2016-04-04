@@ -11,5 +11,8 @@ class Tweet extends Model
 
   protected $table = 'tweets';
   protected $dates = ['delete_at'];
-//  protected $softDelete = true; 
+
+  public function user() {
+    return $this->belongsTo('App\User');
+  }
 }

@@ -43,6 +43,19 @@ class FollowController extends Controller
   }
 
   public function followerList() {
+    \View::Share('title', 'Follow List');
+
+    $follower_list = [];
+    $data = [];
+
+    $follower_list = Follow::where('follow_id', Auth::user()->id)->where('deleted_at', null)->get();
+
+    if(!$follower_list->isEmpty()){
+      $data['list'] = $follower_list;
+    }
+
+    return view('tweet.followerlist', $data);
+
   }
 
   private function _follow($id) {
