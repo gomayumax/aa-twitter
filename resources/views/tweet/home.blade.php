@@ -39,6 +39,7 @@
         {!! Form::submit('削除', ['class' => 'btn btn-primary form-control']) !!}
                 
 {!! Form::close() !!}
+<a href="/tweet/{{$tweet->id}}">編集</a>
 @endif
         </td>
       </tr>
