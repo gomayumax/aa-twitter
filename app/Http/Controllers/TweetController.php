@@ -46,4 +46,20 @@ class TweetController extends Controller
     
     return redirect('tweet');
   }
+
+  public function show($id) {
+    $data['id'] = $id;
+    $data['tweet'] = Tweet::find($id);
+
+    return view('tweet/edit', $data);
+  }
+
+  public function update(Request $request) {
+    $tweet = Tweet::find($request->input('tweet_id'));
+    $tweet->tweet = $request->input('tweet');
+    $tweet->save();
+
+    return redirect('tweet');
+  }
+
 }
